@@ -150,6 +150,96 @@ public class ObjFileReader {
         System.out.println(entity.toString());
     }
 
-    
-    
+    public void createMaterial() throws IOException{
+        BufferedReader br = new BufferedReader(new FileReader(path));
+        String line;
+
+        boolean createMaterial = false;
+
+        ArrayList<Material> materials = new ArrayList<>();
+
+        Material mat = null;
+        String matName = "";
+        
+        float d = 0f;
+        float Ns = 0f;
+
+        while((line = br.readLine()) != null){    
+            line = line.replaceAll("^ +| +$|( )+", "$1");
+            if(createMaterial){
+                if(line.contains("Ka")){
+                    String[] temp = line.split("Ka ");
+                    String[] values = temp[1].split(" ");
+
+                    int i = 0;
+
+                    float[] Ka = new float[3];
+                    for (String string : values) {
+                        Ka[i++] = Float.parseFloat(string);
+                    }
+                    mat.setKa(Ka);
+                }else if(line.contains("Kd ")){
+                    String[] temp = line.split("Kd ");
+                    String[] values = temp[1].split(" ");
+
+                    float[] Kd = new float[3];
+                    int i = 0;
+                    
+                    for (String string : values) {
+                        Kd[i++] = Float.parseFloat(string);
+                    }
+                    mat.setKd(Kd);
+                }else if(line.contains("Ks ")){
+                    String[] temp = line.split("Ks ");
+                    String[] values = temp[1].split(" ");
+
+                    float[] Ks = new float[3];
+
+                    int i = 0;
+                    for (String string : values) {
+                        Ks[i++] = Float.parseFloat(string);
+                    }
+                    mat.setKs(Ks);
+                }else if(line.contains("Ke ")){
+                    String[] temp = line.split("Ke ");
+                    String[] values = temp[1].split(" ");
+
+                    float[] Ke = new float[3];
+
+                    int i = 0;
+                    for (String string : values) {
+                        Ke[i++] = Float.parseFloat(string);
+                    }
+                    mat.setKe(Ke);
+                }else if(line.contains("d ") && !line.contains("Kd")){
+                    String[] temp = line.split("d ");
+                    d = Float.parseFloat(temp[1]);
+                    mat.setD(d);
+                }else if(line.contains("Ns ")){
+                    String[] temp = line.split("Ns ");
+                    Ns = Float.parseFloat(temp[1]);
+                    mat.setNs(Ns);
+                }else if(line.equals("")){
+                    materials.add(mat);
+                    createMaterial = false;
+                }
+            }
+            else{
+                if(line.startsWith("newmtl")){
+                    createMaterial = true;
+                    mat = new Material();
+                    String[] temp = line.split(" ");
+                    mat.setName(temp[1]);
+                }
+            }
+        }
+        if(mat != null)
+            materials.add(mat);
+        
+        br.close();
+
+        for (Material mats : materials) {
+            System.out.println(mats);
+        }
+    }
 }

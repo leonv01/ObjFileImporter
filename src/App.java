@@ -4,11 +4,11 @@ public class App {
     public static void main(String[] args) {
             
         ObjFileReader objFileReader = new ObjFileReader(
-            "C:\\Users\\leonv\\Desktop\\box.obj"
+            "C:\\Users\\leonv\\Desktop\\xwing.mtl"
         );
 
         try{
-            objFileReader.createObject();
+            objFileReader.createMaterial();
         }catch(IOException ignored){
             System.out.println(ignored);
         }
