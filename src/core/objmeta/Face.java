@@ -1,4 +1,4 @@
-package core.objData;
+package core.objmeta;
 
 import core.utils.Vector3D;
 import core.utils.Vertice;

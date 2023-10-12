@@ -1,4 +1,4 @@
-package core.objData;
+package core.objmeta;
 import java.util.ArrayList;
 
 import core.utils.Vector3D;

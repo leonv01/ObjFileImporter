@@ -1,101 +1,119 @@
 package core.utils;
 
 public class Vector3D {
-    float[] coordinates = new float[3];
+    float x,y,z;
 
     public Vector3D(){
-        coordinates[0] = 0f;
-        coordinates[1] = 0f;
-        coordinates[2] = 0f;
+        x = 0f;
+        y = 0f;
+        z = 0f;
     }
 
     public Vector3D(float x, float y, float z){
-        coordinates[0] = x;
-        coordinates[1] = y;
-        coordinates[2] = z;
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     public Vector3D(float[] coordinates){
-        this.coordinates = coordinates;
+        this.x = coordinates[0];
+        this.y = coordinates[1];
+        this.z = coordinates[2];
+    }
+
+    public Vector3D(Vector3D vec){
+        this.x = vec.x;
+        this.y = vec.y;
+        this.z = vec.z;
     }
 
     public void add(Vector3D vec){
-        for(int i = 0; i < 3; i++)
-            coordinates[i] += vec.coordinates[i];
+        this.x += vec.x;
+        this.y += vec.y;
+        this.z += vec.z;
     }
 
     public void sub(Vector3D vec){
-        for(int i = 0; i < 3; i++)
-            coordinates[i] -= vec.coordinates[i];
+        this.x -= vec.x;
+        this.y -= vec.y;
+        this.z -= vec.z;
+    }
+
+    public double distance(Vector3D vec){
+        double tempX = this.x - vec.x;
+        double tempY = this.y - vec.y;
+        double tempZ = this.z - vec.z;
+        return Math.sqrt(tempX * tempX + tempY + tempY + tempZ * tempZ);
     }
 
     public void rotateX(double degree){
-        float tempX = coordinates[0];
-        float tempY = coordinates[1];
+        float tempX = x;
+        float tempY = y;
 
-        coordinates[0] = (float)(tempX * Math.cos(degree) - tempY * Math.sin(degree));
-        coordinates[1] = (float)(tempX * Math.sin(degree) + tempY * Math.cos(degree));
+        x = (float)(tempX * Math.cos(degree) - tempY * Math.sin(degree));
+        y = (float)(tempX * Math.sin(degree) + tempY * Math.cos(degree));
     }
 
     public void rotateY(double degree){
-        float tempX = coordinates[0];
-        float tempY = coordinates[1];
+        float tempX = x;
+        float tempY = y;
 
-        coordinates[0] = (float)(tempX * Math.cos(degree) - tempY * Math.sin(degree));
-        coordinates[1] = (float)(tempX * Math.sin(degree) + tempY * Math.cos(degree));
+        x = (float)(tempX * Math.cos(degree) - tempY * Math.sin(degree));
+        y = (float)(tempX * Math.sin(degree) + tempY * Math.cos(degree));
     }
 
     public void rotateZ(double degree){
-        float tempX = coordinates[0];
-        float tempY = coordinates[1];
+        float tempX = x;
+        float tempY = y;
 
-        coordinates[0] = (float)(tempX * Math.cos(degree) - tempY * Math.sin(degree));
-        coordinates[1] = (float)(tempX * Math.sin(degree) + tempY * Math.cos(degree));
+        x = (float)(tempX * Math.cos(degree) - tempY * Math.sin(degree));
+        y = (float)(tempX * Math.sin(degree) + tempY * Math.cos(degree));
     }
 
 
 
     public void scale(float s){
-        for(int i = 0; i < 3; i++)
-            coordinates[i] *= s;
+        x *= s;
+        y *= s;
+        z *= s;
     }
 
     public float length(){
         return (float) Math.sqrt(
-            coordinates[0] * coordinates[0] +
-            coordinates[1] * coordinates[1] +
-            coordinates[2] * coordinates[2] 
+            x * x +
+            y * y +
+            z * z
         );
     }
 
     public static Vector3D dot(Vector3D vec1, Vector3D vec2){
         return new Vector3D(     
-            vec1.coordinates[1] * vec2.coordinates[2] - vec1.coordinates[2] * vec2.coordinates[1],
-            vec1.coordinates[2] * vec2.coordinates[0] - vec1.coordinates[0] * vec2.coordinates[2],
-            vec1.coordinates[0] * vec2.coordinates[1] - vec1.coordinates[1] * vec2.coordinates[0]
+            vec1.y * vec2.z - vec1.z * vec2.y,
+            vec1.z * vec2.x - vec1.x * vec2.z,
+            vec1.x * vec2.y - vec1.y * vec2.x
         );
     } 
 
     public static Vector3D sub(Vector3D vec1, Vector3D vec2){
         return new Vector3D(
-            vec1.coordinates[0] - vec2.coordinates[0],
-            vec1.coordinates[1] - vec2.coordinates[1],
-            vec1.coordinates[2] - vec2.coordinates[2]
+            vec1.x - vec2.x,
+            vec1.y - vec2.y,
+            vec1.z - vec2.z
         );
     }
 
     public static Vector3D add(Vector3D vec1, Vector3D vec2){
         return new Vector3D(
-            vec1.coordinates[0] + vec2.coordinates[0],
-            vec1.coordinates[1] + vec2.coordinates[1],
-            vec1.coordinates[2] + vec2.coordinates[2]
+            vec1.x + vec2.x,
+            vec1.y + vec2.y,
+            vec1.z + vec2.z
         );
     }
 
     @Override
     public String toString(){
         return String.format( "x: %f\t y: %f\t z: %f", 
-            coordinates[0], coordinates[1], coordinates[2]
+            x,y,z
         );
     }
 }

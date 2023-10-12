@@ -2,7 +2,7 @@ package core;
 
 import java.util.*;
 
-import core.objData.Entity;
+import core.objmeta.Entity;
 
 public class Scene {
     private ArrayList<Entity> entities = new ArrayList<>();
