@@ -1,17 +1,24 @@
 package core;
 import java.io.IOException;
 
+import core.objData.Entity;
+import core.objData.ObjFileReader;
+
 public class App {
+
     public static void main(String[] args) {
-            
-        ObjFileReader objFileReader = new ObjFileReader(
-            "C:\\Users\\Leon\\Documents\\ObjFileImporter\\src\\obj\\star-destroyer\\stardestroyer.obj"
-        );
+        Entity entity = null;
 
         try{
-            objFileReader.createObject();
-        }catch(IOException ignored){
+            entity = ObjFileReader.createObject(
+                "C:\\Users\\Leon\\Documents\\ObjFileImporter\\src\\obj\\star-destroyer\\stardestroyer.obj"
+                );
+        }catch(IOException ignored){ 
             System.out.println(ignored);
         }
+
+        if(entity != null)
+            System.out.println(entity);
     }
+
 }

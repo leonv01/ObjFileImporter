@@ -1,4 +1,5 @@
-package core;
+package core.utils;
+
 public class Vertice {
     Vector3D absolute;
     Vector3D rel;

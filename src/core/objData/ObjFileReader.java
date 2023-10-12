@@ -1,18 +1,15 @@
-package core;
+package core.objData;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import core.utils.Vector3D;
+import core.utils.Vertice;
+
 public class ObjFileReader {
 
-    private final String path;
-    
-    public ObjFileReader(String path){
-        this.path = path;
-    }
-
-    public void createObject() throws IOException {
+    public static Entity createObject(String path) throws IOException {
         ArrayList<Vector3D> verticeList = new ArrayList<>();
         ArrayList<Vector3D> verticeNormalList = new ArrayList<>();
         ArrayList<Vector3D> verticeTextureList = new ArrayList<>();
@@ -138,20 +135,24 @@ public class ObjFileReader {
         }
         br.close();
         
-        Entity entity = new Entity(faces);
-        entity.setName(name);
-        entity.updatePosition(
-            new Vector3D(
-                new float[]{
-                    50f, 50f, 2f
-                }
-            )
-        );
 
-        System.out.println(entity.toString());
+       // System.out.println(entity.toString());
+
+
+        StringBuilder mtl = new StringBuilder(path);
+        mtl.delete(path.length() - 3, path.length());
+        mtl.append("mtl");
+
+        ArrayList<Material> material = createMaterial(mtl.toString());
+    
+        Entity entity = new Entity(faces, material);
+        entity.setName(name);
+
+        
+        return entity;
     }
 
-    public void createMaterial() throws IOException{
+    public static ArrayList<Material> createMaterial(String path) throws IOException{
         BufferedReader br = new BufferedReader(new FileReader(path));
         String line;
 
@@ -160,7 +161,6 @@ public class ObjFileReader {
         ArrayList<Material> materials = new ArrayList<>();
 
         Material mat = null;
-        String matName = "";
         
         float d = 0f;
         float Ns = 0f;
@@ -242,8 +242,6 @@ public class ObjFileReader {
         
         br.close();
 
-        for (Material mats : materials) {
-            System.out.println(mats);
-        }
+        return materials;
     }
 }

@@ -1,4 +1,4 @@
-package core;
+package core.objData;
 public class Material {
     protected String name;    // material name
     protected float[] Ka;     // ambient color

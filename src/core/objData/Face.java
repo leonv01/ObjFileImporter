@@ -1,4 +1,8 @@
-package core;
+package core.objData;
+
+import core.utils.Vector3D;
+import core.utils.Vertice;
+
 public class Face {
     Vertice[] verts = new Vertice[3];
 

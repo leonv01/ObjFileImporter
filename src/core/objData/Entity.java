@@ -1,5 +1,7 @@
-package core;
+package core.objData;
 import java.util.ArrayList;
+
+import core.utils.Vector3D;
 
 public class Entity {
     ArrayList<Face> faces;
@@ -8,9 +10,17 @@ public class Entity {
     Vector3D pivot;
     boolean smoothShading;
 
+    ArrayList<Material> material;
+
     public Entity(){
         faces = new ArrayList<>(0);
         pivot = new Vector3D();
+    }
+
+    public Entity(ArrayList<Face> faces, ArrayList<Material> material){
+        this.faces = faces;
+        pivot = new Vector3D();
+        this.material = material;
     }
 
     public Entity(ArrayList<Face> faces){
@@ -42,6 +52,13 @@ public class Entity {
         for (Face face : faces) {
             str.append(String.format("Face nr. %d\n%s\n", ++i, face));
         }
+
+        str.append("Materials: \n");
+        
+        for (Material mat : material) {
+            str.append(mat);
+        }
+
 
         return str.toString();
     }
