@@ -70,15 +70,13 @@ public class Vector3D {
         y = (float)(tempX * Math.sin(degree) + tempY * Math.cos(degree));
     }
 
-
-
     public void scale(float s){
         x *= s;
         y *= s;
         z *= s;
     }
 
-    public float length(){
+    public double length(){
         return (float) Math.sqrt(
             x * x +
             y * y +
@@ -86,7 +84,7 @@ public class Vector3D {
         );
     }
 
-    public static Vector3D dot(Vector3D vec1, Vector3D vec2){
+    public Vector3D crossProduct(Vector3D vec1, Vector3D vec2){
         return new Vector3D(     
             vec1.y * vec2.z - vec1.z * vec2.y,
             vec1.z * vec2.x - vec1.x * vec2.z,
@@ -94,20 +92,8 @@ public class Vector3D {
         );
     } 
 
-    public static Vector3D sub(Vector3D vec1, Vector3D vec2){
-        return new Vector3D(
-            vec1.x - vec2.x,
-            vec1.y - vec2.y,
-            vec1.z - vec2.z
-        );
-    }
-
-    public static Vector3D add(Vector3D vec1, Vector3D vec2){
-        return new Vector3D(
-            vec1.x + vec2.x,
-            vec1.y + vec2.y,
-            vec1.z + vec2.z
-        );
+    public double dotProduct(Vector3D v1, Vector3D v2){
+        return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
     }
 
     @Override
