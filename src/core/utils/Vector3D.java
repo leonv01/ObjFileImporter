@@ -84,6 +84,13 @@ public class Vector3D {
         );
     }
 
+    public static Vector3D add(Vector3D vec1, Vector3D vec2){
+        return new Vector3D(
+            vec1.x + vec2.x, 
+            vec1.y + vec2.y, 
+            vec1.z + vec2.z);
+    }
+
     public Vector3D crossProduct(Vector3D vec1, Vector3D vec2){
         return new Vector3D(     
             vec1.y * vec2.z - vec1.z * vec2.y,

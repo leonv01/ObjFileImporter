@@ -1,0 +1,119 @@
+@startuml
+scale 2
+
+class Vector3D{
+    - x : float
+    - y : float
+    - z : float
+
+    + Vector3D()
+    + Vector3D(x : float, y : float, z : float)
+    + Vector3D(coordinates : float[])
+    + Vector3D(vec : Vector3D)
+
+    + add(vec : Vector3D) : void
+    + sub(vec : Vector3D) : void
+    + rotateX(degree : double) : void
+    + rotateY(degree : double) : void
+    + rotateZ(degree : double) : void
+    + scale(s : float) : void
+    + length() : double
+    + distance(vec : Vector3D) : double
+    + crossProduct(vec1 : Vector3D, vec2 : Vector3D) : Vector3D
+    + dotProduct(v1 : Vector3D, v2 : Vector3D) : double
+    + toString() : String
+}
+
+class Vertice{
+    - absolute : Vector3D
+    - relative : Vector3D
+    - normal : Vector3D
+    - texture : Vector3D
+
+    + Vertice()
+    + Vertice(pos : Vector3D, normal : Vector3D, texture : Vector3D)
+    
+    + updatePos(pivot : Vector3D) : void
+    + toString() : String
+}
+
+class Face{
+    - verts : Vertice[]
+
+    + Face()
+    + Face(verts : Vertice[])
+
+    + updatePos(pos : Vector3D) : void
+    + toString() : String
+}
+
+class Entity{
+    - faces : Face[0..*]
+    - name : String
+    - {static} entityID : int
+    - pivot : Vector3D
+    - smoothShading : boolean
+    - material : Material[0..*]
+
+    + Entity()
+    + Entity(faces : Face[0..*], material : Material[0..*])
+    + Entity(faces : Face[0..*])
+
+    + setName(name : String) : void
+    + setSmoothShading(smoothShading : boolean) : void
+    + updatePos(vec : Vector3D) : void 
+    + toString() : String
+}
+
+class Material{
+    - name : String
+    - ka : float[3]
+    - kd : float[3]
+    - ks : float[3]
+    - ke : float[3]
+    - d : float
+    - ns : float
+    - ni : float
+    - illum : int
+    - mapKd : String
+
+    + Material()
+    + Material(ka : float[3], kd : float[3], ks : float[3], ke : float[3], d : float, ns : float, ni : float, illum : int, mapKd : String)
+
+    + setName(name : String) : void
+    + setKa(ka : float[3]) : void
+    + setKd(kd : float[3]) : void
+    + setKs(Ks : float[3]) : void
+    + setKe(Ke : float[3]) : void
+    + setD(d : float) : void
+    + setNs(ns : float) : void
+    + setNi(ni : float) : void
+    + setIllum(illum : int) : void
+    + setMapKd(mapKd : String) : void
+
+    
+    + getName() : String
+    + getKa() : float[3]
+    + getKd() : float[3]
+    + getKs() : float[3]
+    + getKe() : float[3]
+    + getD() : float
+    + getNs() : float
+    + getNi() : float
+    + getIllum() : int
+    + getMapKd() : String
+
+    + toString() : String
+}
+
+class ObjFileReader{
+    + {static} createObject(path : String) : Entity {Exception=IOException}
+    + {static} createMaterial(path : String) : Material[0..*] {Exception=IOException}
+}
+
+Vector3D *-- Vertice
+Vertice *-right- Face
+Face *-right- Entity
+Vector3D *-- Entity
+Material o-- Entity
+@enduml

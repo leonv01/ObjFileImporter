@@ -13,7 +13,7 @@ public class App {
         Entity entity = null;
         try{
            entity = ObjFileReader.createObject(
-                "C:\\Users\\Leon\\Documents\\ObjFileImporter\\src\\obj\\star-destroyer\\stardestroyer.obj"
+                "C:\\Users\\leonv\\Documents\\JavaTools\\ObjFileImporter\\ObjFileImporter\\src\\obj\\star-destroyer\\stardestroyer.obj"
                 );
         }catch(IOException ignored){ 
             System.out.println(ignored);

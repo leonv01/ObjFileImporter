@@ -1,82 +1,113 @@
 package core.objmeta;
 public class Material {
-    protected String name;    // material name
-    protected float[] Ka;     // ambient color
-    protected float[] Kd;     // diffuse color
-    protected float[] Ks;     // specular color
-    protected float[] Ke;     // emissive coefficient
-    protected float d;        // dissolve
-    protected float Ns;       // specular highlights
-    protected float Ni;       // optical density
-    protected int illum;      // illumination model
-    protected String map_Kd;  // color texture file
+    private String name;    // material name
+    private float[] ka;     // ambient color
+    private float[] kd;     // diffuse color
+    private float[] ks;     // specular color
+    private float[] ke;     // emissive coefficient
+    private float d;        // dissolve
+    private float ns;       // specular highlights
+    private float ni;       // optical density
+    private int illum;      // illumination model
+    private String mapKd;  // color texture file
 
     public Material(){
-        Ka = new float[3];
-        Kd = new float[3];
-        Ks = new float[3];
-        Ke = new float[3];
+        ka = new float[3];
+        kd = new float[3];
+        ks = new float[3];
+        ke = new float[3];
         d = 0f;
-        Ns = 0f;
-        Ni = 0f;
+        ns = 0f;
+        ni = 0f;
         illum = 0;
-        map_Kd = "";
+        mapKd = "";
     }
 
     public Material(
         String name,
-        float[] Ka,
-        float[] Kd, 
-        float[] Ks,
-        float[] Ke,
+        float[] ka,
+        float[] kd, 
+        float[] ks,
+        float[] ke,
         float d, 
-        float Ns,
-        float Ni,
+        float ns,
+        float ni,
         int illum,
-        String map_Kd
+        String mapKd
         ){
             this.name = name;
-            this.Ka = Ka;
-            this.Kd = Kd;
-            this.Ks = Ks;
-            this.Ke = Ke;
+            this.ka = ka;
+            this.kd = kd;
+            this.ks = ks;
+            this.ke = ke;
             this.d = d;
-            this.Ns = Ns;
-            this.Ni = Ni;
+            this.ns = ns;
+            this.ni = ni;
             this.illum = illum;
-            this.map_Kd = map_Kd;
+            this.mapKd = mapKd;
     }
 
 
     public void setName (String name){
         this.name = name;
     }
-    public void setKa(float[] Ka){
-        this.Ka = Ka;
+    public void setKa(float[] ka){
+        this.ka = ka;
     }
-    public void setKd(float[] Kd){
-        this.Kd = Kd;
+    public void setKd(float[] kd){
+        this.kd = kd;
     }
-    public void setKs(float[] Ks){
-        this.Ks = Ks;
+    public void setKs(float[] ks){
+        this.ks = ks;
     }
-    public void setKe(float[] Ke){
-        this.Ke = Ke;
+    public void setKe(float[] ke){
+        this.ke = ke;
     }
     public void setD(float d){
         this.d = d;
     }
-    public void setNs(float Ns){
-        this.Ns = Ns;
+    public void setNs(float ns){
+        this.ns = ns;
     }
-    public void setNi(float Ni){
-        this.Ni = Ni;
+    public void setNi(float ni){
+        this.ni = ni;
     }
     public void setIllum(int illum){
         this.illum = illum;
     }
-    public void setMapKd(String map_Kd){
-        this.map_Kd = map_Kd;
+    public void setMapKd(String mapKd){
+        this.mapKd = mapKd;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public float[] getKa() {
+        return ka;
+    }
+    public float[] getKd() {
+        return kd;
+    }
+    public float[] getKs() {
+        return ks;
+    }
+    public float[] getKe() {
+        return ke;
+    }
+    public float getD() {
+        return d;
+    }
+    public float getNs() {
+        return ns;
+    }
+    public float getNi() {
+        return ni;
+    }
+    public int getIllum() {
+        return illum;
+    }
+    public String getMapKd() {
+        return mapKd;
     }
 
     @Override
@@ -93,15 +124,15 @@ public class Material {
             "illum: %d\n" +
             "map_Kd: %s\n", 
             name,
-            Ka[0], Ka[1], Ka[2],
-            Kd[0], Kd[1], Kd[2], 
-            Ks[0], Ks[1], Ks[2],
-            Ke[0], Ke[1], Ke[2],
+            ka[0], ka[1], ka[2],
+            kd[0], kd[1], kd[2], 
+            ks[0], ks[1], ks[2],
+            ke[0], ke[1], ke[2],
             d,
-            Ns,
-            Ni,
+            ns,
+            ni,
             illum,
-            map_Kd
+            mapKd
             );
     }
 }
