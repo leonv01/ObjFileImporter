@@ -1,6 +1,20 @@
 @startuml
 scale 2
 
+Vector3D *-- Vertice
+Vertice *-right- Face
+Face *-right- Entity
+Vector3D *-- Entity
+Material o-- Entity
+
+note top of Scene : Using singleton GOF pattern for scene
+note right of Scene::getScene()
+    if(scene == null){
+        scene = new Scene();
+    }
+    return scene;
+end note
+
 class Vector3D{
     - x : float
     - y : float
@@ -38,7 +52,7 @@ class Vertice{
 }
 
 class Face{
-    - verts : Vertice[]
+    - verts : Vertice[3..*]
 
     + Face()
     + Face(verts : Vertice[])
@@ -48,7 +62,7 @@ class Face{
 }
 
 class Entity{
-    - faces : Face[0..*]
+    - faces : Face[3..*]
     - name : String
     - {static} entityID : int
     - pivot : Vector3D
@@ -62,6 +76,9 @@ class Entity{
     + setName(name : String) : void
     + setSmoothShading(smoothShading : boolean) : void
     + updatePos(vec : Vector3D) : void 
+    + rotateX(angle : double) : void
+    + rotateY(angle : double) : void
+    + rotateZ(angle : double) : void
     + toString() : String
 }
 
@@ -111,9 +128,48 @@ class ObjFileReader{
     + {static} createMaterial(path : String) : Material[0..*] {Exception=IOException}
 }
 
-Vector3D *-- Vertice
-Vertice *-right- Face
-Face *-right- Entity
-Vector3D *-- Entity
-Material o-- Entity
+class Camera{
+    - resolutionX : int
+    - resolutionY : int
+    - position : Vector3D
+    - direction : Vector3D
+    - orientation : Vector3D
+    - fov : double
+
+    + Camera()
+    + Camera(position : Vector3D, direction : Vector3D, orientation : Vector3D, fov : double)
+
+    + updatePos(position : Vector3D) : void
+    + rotateX(angle : double) : void
+    + rotateY(angle : double) : void
+    + rotateZ(angle : double) : void
+
+    + toString() : String
+}
+
+class Ray{
+    - position : Vector3D
+    - direction : Vector3D
+
+    + Ray()
+    + Ray(position : Vector3D, direction : Vector3D)
+    + getColor() : float[3]
+    + calculateCrosssection(obj? : Object) : void
+}
+
+class yamlFileExporter{
+    + {static} exportScene(scence : Scene, path : String) : void {throws Exception=IOException}
+}
+
+class Scene{
+    - entities : Entity[0..*]
+    - cameras : Camera[0..*]
+    - lights : Light[0..*]
+    - {static} scene : Scene
+    - Scene()
+
+    + getScene() : Scene 
+}
+
+
 @enduml

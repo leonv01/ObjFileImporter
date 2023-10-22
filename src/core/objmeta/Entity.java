@@ -36,7 +36,7 @@ public class Entity {
         this.smoothShading = smoothShading;
     }
 
-    public void updatePosition(Vector3D vec){
+    public void updatePos(Vector3D vec){
         pivot.add(vec);
         for(Face face: faces)
             face.updatePos(pivot);
